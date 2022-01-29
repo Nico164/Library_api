@@ -9,6 +9,9 @@ export class FeedService {
 
     async getFeeds(): Promise<any> {
         return await this.prismaService.feed.findMany({
+            where: {
+                status: true,
+            },
             include: {
                 user: true
             }
@@ -31,5 +34,16 @@ export class FeedService {
             data,
         })
 
+    }
+
+    async deleteFeed(id: number): Promise<any> {
+        return await this.prismaService.feed.update({
+            where: {
+                id: Number(id)
+            },
+            data: {
+                status: false
+            }
+        })
     }
 }
