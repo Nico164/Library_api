@@ -15,6 +15,8 @@ model User {
   email String  @unique
   name  String?
   password String
+  feeds   Feed[]
+  commentar Comment[]
 }
 
 model Book {
@@ -24,3 +26,21 @@ model Book {
   author String
 }
 
+model Feed {
+  id   Int       @id @default(autoincrement())
+  title         String
+  description   String
+  userId        Int
+  user        User  @relation(fields: [userId], references: [id])
+  comment    Comment[]
+}
+
+
+model Comment {
+  id   Int       @id @default(autoincrement())
+  commentar      String
+  userId        Int
+  user          User  @relation(fields: [userId], references: [id])
+  feedId        Int
+  feed          Feed  @relation(fields: [feedId], references: [id])
+}

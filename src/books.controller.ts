@@ -6,16 +6,25 @@ import { BookService } from './books.service';
 @Controller()
 @ApiTags('Books')
 export class BookController {
-  constructor(private readonly bookService: BookService) {}
+  constructor(private readonly bookService: BookService) { }
 
   @Get("/books")
-  getHi(): {data: string, message: string} {
-    return this.bookService.getHiData();
+  getBooks(): any {
+    return this.bookService.getBooks();
+  }
+
+  @Get("/books/:id")
+  @ApiParam({
+    name: "id",
+    type: String
+  })
+  getBooksById(@Param('id') id: number): any {
+    return this.bookService.getBooksById(id);
   }
 
   @Post("/books")
-  postHi(@Body() createBookDto: CreateBookDTO):string {
-    return "hi";
+  addBook(@Body() createBookDto: CreateBookDTO): any {
+    return this.bookService.addBook(createBookDto);
   }
 
   @Put("/books/:id")
@@ -23,7 +32,7 @@ export class BookController {
     name: "id",
     type: String
   })
-  putHi(@Param('id') id:string | number): string {
+  putHi(@Param('id') id: string | number): string {
     return "hi";
   }
 
@@ -31,12 +40,12 @@ export class BookController {
   @ApiParam({
     name: "id",
     type: String
-})
-  deleteHi(): string {
-    
-    return "hi";
+  })
+  deleteHi(@Param("id") id: number): any {
+    return this.bookService.deleteBook(id);
   }
 
-  
+
+
 
 }
