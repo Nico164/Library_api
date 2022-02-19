@@ -8,9 +8,10 @@ import { FeedController } from './feed/feed.controller';
 import { FeedService } from './feed/feed.service';
 import { CommentController } from './comment/comment.controller';
 import { CommentService } from './comment/comment.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [],
+  imports: [AuthModule],
   controllers: [UserController, BookController, FeedController, CommentController],
   providers: [ UserService, BookService, PrismaService, FeedService, CommentService]
 })

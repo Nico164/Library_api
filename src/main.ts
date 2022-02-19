@@ -9,7 +9,7 @@ async function bootstrap() {
     .setTitle('Library API')
     .setDescription('library website service')
     .setVersion('1.0.0')
-    .addTag('books')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   const prismaService: PrismaService = app.get(PrismaService);

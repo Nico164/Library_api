@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { ApiParam, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { brotliDecompressSync } from 'zlib';
 import { CreateFeedDTO } from './feed.dto';
 import { FeedService } from './feed.service';
@@ -9,7 +10,10 @@ import { FeedService } from './feed.service';
 export class FeedController {
     constructor(private feedService: FeedService) {}
     
+
     @Get()
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
     getFeeds(): Promise<any> {
         return this.feedService.getFeeds();
     }
